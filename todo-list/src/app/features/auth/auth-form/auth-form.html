@@ -1,0 +1,55 @@
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+    @if (mode() === 'register') {
+    <div>
+        <label for="userName">Username:</label>
+        <input id="userName" formControlName="userName" type="text" />
+         @if (authForm.get('userName')?.invalid && authForm.get('userName')?.touched) {
+    <div class="error">
+        @if (authForm.get('userName')?.errors?.['required']) {
+            <span>Username is required</span>
+        }
+    </div>
+  }
+    </div>
+    }
+    <div>
+    <label>Email:</label>
+    <input type="email" formControlName="email">
+    @if (authForm.get('email')?.invalid && authForm.get('email')?.touched) {
+    <div class="error">
+      @if (authForm.get('email')?.errors?.['required']) {
+        <span>Email is required</span>
+      }
+      @if (authForm.get('email')?.errors?.['pattern']) {
+        <span>Please enter a valid email address</span>
+      }
+     
+    </div>
+  }
+  </div>
+
+  <div>
+    <label>Password:</label>
+    <input type="password" formControlName="password">
+     @if (authForm.get('password')?.invalid && authForm.get('password')?.touched) {
+    <div class="error">
+      @if (authForm.get('password')?.errors?.['required']) {
+        <span>Password is required</span>
+      }
+     
+        @if (authForm.get('password')?.errors?.['minlength']) {
+            <span>Password must be at least 6 characters long</span>
+        }
+        @if (authForm.get('password')?.errors?.['maxlength']) {
+            <span>Password cannot be longer than 20 characters</span>
+        }
+    </div>
+  }
+  </div>
+  <button type="submit" [disabled]="authForm.invalid">
+    @if (mode() === 'login') {
+        Login
+    } @else {
+        Register
+    }</button>
+</form>

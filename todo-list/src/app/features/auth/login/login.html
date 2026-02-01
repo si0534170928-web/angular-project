@@ -1,0 +1,9 @@
+<div>
+    <h1>please login</h1>
+    <app-auth-form [mode]="'login'" 
+    (loginFormSubmitted)="onSubmit($event)"></app-auth-form>
+    <h2>waiting just for you</h2>
+    <nav>
+        <a routerLink="/auth/register">Don't have an account? Register here.</a>
+    </nav>
+</div>
