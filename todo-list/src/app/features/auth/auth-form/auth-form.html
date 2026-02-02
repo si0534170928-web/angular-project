@@ -20,7 +20,7 @@
       @if (authForm.get('email')?.errors?.['required']) {
         <span>Email is required</span>
       }
-      @if (authForm.get('email')?.errors?.['pattern']) {
+      @if (authForm.get('email')?.errors?.['email']) {
         <span>Please enter a valid email address</span>
       }
      
@@ -43,10 +43,13 @@
         @if (authForm.get('password')?.errors?.['maxlength']) {
             <span>Password cannot be longer than 20 characters</span>
         }
+        @if (authForm.get('password')?.errors?.['pattern']) {
+            <span>Password must contain at least one letter and one number</span>
+        }
     </div>
   }
   </div>
-  <button type="submit" [disabled]="authForm.invalid">
+  <button type="submit" [disabled]="authForm.invalid && authForm.touched">
     @if (mode() === 'login') {
         Login
     } @else {
