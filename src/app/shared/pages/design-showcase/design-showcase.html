@@ -1,0 +1,311 @@
+<!-- ClickUp-Inspired Design System Showcase -->
+<div class="showcase-container">
+  
+  <!-- Page Header -->
+  <div class="showcase-header">
+    <h1>Design System Showcase</h1>
+    <p>ClickUp-inspired Angular Material theme with consistent, professional components</p>
+  </div>
+
+  <!-- Color Palette Section -->
+  <mat-card class="showcase-section">
+    <mat-card-header>
+      <mat-card-title>Color Palette</mat-card-title>
+      <mat-card-subtitle>Primary colors and neutral tones</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="color-grid">
+        <div class="color-item">
+          <div class="color-swatch primary"></div>
+          <span>Primary (#7b68ee)</span>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch primary-hover"></div>
+          <span>Primary Hover</span>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch neutral-bg"></div>
+          <span>Neutral Background</span>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch white"></div>
+          <span>Surface White</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Buttons Section -->
+  <mat-card class="showcase-section">
+    <mat-card-header>
+      <mat-card-title>Action Buttons</mat-card-title>
+      <mat-card-subtitle>Enhanced buttons with multiple variants and states</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="component-grid">
+        
+        <!-- Button Variants -->
+        <div class="component-group">
+          <h4>Variants</h4>
+          <div class="button-row">
+            <app-action-button
+              text="Primary"
+              variant="primary"
+              icon="star"
+              (clicked)="onButtonClick('primary')">
+            </app-action-button>
+            
+            <app-action-button
+              text="Secondary"
+              variant="secondary"
+              icon="info"
+              (clicked)="onButtonClick('secondary')">
+            </app-action-button>
+            
+            <app-action-button
+              text="Danger"
+              variant="danger"
+              icon="warning"
+              (clicked)="onButtonClick('danger')">
+            </app-action-button>
+            
+            <app-action-button
+              text="Ghost"
+              variant="ghost"
+              icon="visibility"
+              (clicked)="onButtonClick('ghost')">
+            </app-action-button>
+          </div>
+        </div>
+
+        <!-- Button Sizes -->
+        <div class="component-group">
+          <h4>Sizes</h4>
+          <div class="button-row">
+            <app-action-button
+              text="Small"
+              variant="primary"
+              size="small"
+              icon="arrow_forward">
+            </app-action-button>
+            
+            <app-action-button
+              text="Medium"
+              variant="primary"
+              size="medium"
+              icon="arrow_forward">
+            </app-action-button>
+            
+            <app-action-button
+              text="Large"
+              variant="primary"
+              size="large"
+              icon="arrow_forward">
+            </app-action-button>
+          </div>
+        </div>
+
+        <!-- Button States -->
+        <div class="component-group">
+          <h4>States</h4>
+          <div class="button-row">
+            <app-action-button
+              text="Normal"
+              variant="primary">
+            </app-action-button>
+            
+            <app-action-button
+              text="Loading"
+              variant="primary"
+              [loading]="true">
+            </app-action-button>
+            
+            <app-action-button
+              text="Disabled"
+              variant="primary"
+              [disabled]="true">
+            </app-action-button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Form Components Section -->
+  <mat-card class="showcase-section">
+    <mat-card-header>
+      <mat-card-title>Form Components</mat-card-title>
+      <mat-card-subtitle>Consistent input styling with unified appearance</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-grid">
+        
+        <!-- Text Inputs -->
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Project Name</mat-label>
+            <input matInput [(ngModel)]="inputValue" placeholder="Enter project name">
+            <mat-icon matSuffix>edit</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Select Dropdown -->
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Priority Level</mat-label>
+            <mat-select [(ngModel)]="selectedValue">
+              <mat-option value="high">High Priority</mat-option>
+              <mat-option value="medium">Medium Priority</mat-option>
+              <mat-option value="low">Low Priority</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Multi-line Input -->
+        <div class="form-group full-width">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput rows="4" placeholder="Describe your project..."></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Chips and Controls Section -->
+  <mat-card class="showcase-section">
+    <mat-card-header>
+      <mat-card-title>Chips & Controls</mat-card-title>
+      <mat-card-subtitle>Tags, toggles, and selection components</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="component-grid">
+        
+        <!-- Chips -->
+        <div class="component-group">
+          <h4>Technology Tags</h4>
+          <mat-chip-set>
+            @for (chip of chipsList; track chip.name) {
+              <mat-chip 
+                [class.mat-mdc-chip-selected]="chip.selected"
+                (click)="chip.selected = !chip.selected">
+                {{ chip.name }}
+                @if (chip.selected) {
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                }
+              </mat-chip>
+            }
+          </mat-chip-set>
+        </div>
+
+        <!-- Checkboxes and Radio -->
+        <div class="component-group">
+          <h4>Selection Controls</h4>
+          <div class="controls-row">
+            <mat-checkbox color="primary">Enable notifications</mat-checkbox>
+            <mat-checkbox color="primary" checked>Auto-save enabled</mat-checkbox>
+          </div>
+          <div class="controls-row">
+            <mat-radio-group>
+              <mat-radio-button value="public" color="primary">Public</mat-radio-button>
+              <mat-radio-button value="private" color="primary">Private</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <!-- Toggle Switches -->
+        <div class="component-group">
+          <h4>Toggle Switches</h4>
+          <div class="controls-row">
+            <mat-slide-toggle color="primary">Dark mode</mat-slide-toggle>
+            <mat-slide-toggle color="primary" checked>Sync enabled</mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Progress and Feedback -->
+  <mat-card class="showcase-section">
+    <mat-card-header>
+      <mat-card-title>Progress & Status</mat-card-title>
+      <mat-card-subtitle>Loading states and progress indicators</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="progress-section">
+        <h4>Task Completion: {{ progressValue() }}%</h4>
+        <mat-progress-bar 
+          mode="determinate" 
+          [value]="progressValue()"
+          color="primary">
+        </mat-progress-bar>
+        
+        <div class="progress-controls">
+          <button mat-button (click)="progressValue.set(Math.max(0, progressValue() - 10))">-10%</button>
+          <button mat-button (click)="progressValue.set(Math.min(100, progressValue() + 10))">+10%</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Data Table -->
+  <mat-card class="showcase-section">
+    <mat-card-header>
+      <mat-card-title>Data Table</mat-card-title>
+      <mat-card-subtitle>Clean, organized data display</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="tableData" class="demo-table">
+        
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Task Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">
+            <span [class]="'status-badge status-' + element.status.toLowerCase().replace(' ', '-')">{{ element.status }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+          <th mat-header-cell *matHeaderCellDef>Priority</th>
+          <td mat-cell *matCellDef="let element">
+            <span [class]="'priority-badge priority-' + element.priority.toLowerCase()">{{ element.priority }}</span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Typography Showcase -->
+  <mat-card class="showcase-section">
+    <mat-card-header>
+      <mat-card-title>Typography Scale</mat-card-title>
+      <mat-card-subtitle>Inter & Public Sans font system</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="typography-showcase">
+        <h1 class="mat-headline-1">Headline 1 - Main Page Title</h1>
+        <h2 class="mat-headline-2">Headline 2 - Section Title</h2>
+        <h3 class="mat-headline-3">Headline 3 - Subsection</h3>
+        <h4 class="mat-headline-4">Headline 4 - Component Title</h4>
+        <h5 class="mat-headline-5">Headline 5 - Small Title</h5>
+        <h6 class="mat-headline-6">Headline 6 - Micro Title</h6>
+        <p class="mat-body-1">Body 1 - Main content text with good readability for extended reading.</p>
+        <p class="mat-body-2">Body 2 - Secondary content text, slightly smaller for supplementary information.</p>
+        <p class="mat-caption">Caption - Small text for labels, metadata, and supporting information.</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

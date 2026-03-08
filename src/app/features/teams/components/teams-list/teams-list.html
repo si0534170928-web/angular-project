@@ -1,0 +1,17 @@
+@if (teams.length > 0) {
+  <div class="teams-grid">
+    @for (team of teams; track trackByTeamId($index, team)) {
+      <app-team-card
+        [team]="team"
+        [canAddMembers]="canAddMembers"
+        (cardClick)="onTeamClick($event)"
+        (addMemberClick)="onAddMember($event)">
+      </app-team-card>
+    }
+  </div>
+} @else {
+  <div class="empty-state">
+    <span class="empty-icon"><mat-icon>groups</mat-icon></span>
+    <p>You are not a member of any teams yet.</p>
+  </div>
+}

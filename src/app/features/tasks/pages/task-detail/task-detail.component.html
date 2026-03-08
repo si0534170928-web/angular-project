@@ -1,0 +1,168 @@
+@if (isLoading()) {
+<!-- Loading State -->
+<div class="loading-container">
+  <p>Loading task...</p>
+</div>
+}
+
+@if (!isLoading() && !task()) {
+<!-- Task Not Found -->
+<div class="error-container">
+  <p>Task not found.</p>
+  <button mat-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon> Back to Project
+  </button>
+</div>
+}
+
+@if (!isLoading() && task()) {
+<!-- Task Detail -->
+<div class="page-container">
+
+  <!-- Back Button -->
+  <button mat-button class="back-button" (click)="goBack()" aria-label="Go back to project details">
+    <mat-icon>arrow_back</mat-icon> Back to Project
+  </button>
+
+  <div class="two-column-layout">
+
+    <!-- LEFT: Task Info -->
+    <div class="left-column">
+      <mat-card class="task-info-card">
+        <mat-card-header>
+          <mat-card-title>{{ task()?.title }}</mat-card-title>
+          <mat-card-subtitle>
+            <mat-chip [color]="getPriorityColor(task()?.priority ?? '')" selected>
+              {{ task()?.priority }}
+            </mat-chip>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+
+          @if (task()?.description) {
+          <!-- Description -->
+          <div class="info-row">
+            <span class="label">Description</span>
+            <p class="value">{{ task()?.description }}</p>
+          </div>
+          }
+
+          <!-- Due Date -->
+          <div class="info-row">
+            <span class="label">Due Date</span>
+            <p class="value">{{ formatDate(task()?.due_date) }}</p>
+          </div>
+
+          <!-- Status Selector -->
+          <div class="info-row">
+            <span class="label">Status</span>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-select [value]="task()?.status" (selectionChange)="onStatusChange($event.value)">
+                @for (opt of statusOptions; track opt.value) {
+                  <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Assignee Selector -->
+          <div class="info-row">
+            <span class="label">Assigned To</span>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-select [value]="task()?.assignee_id" (selectionChange)="onAssigneeChange($event.value)">
+                <mat-option [value]="null">Unassigned</mat-option>
+                @for (user of users(); track user.id) {
+                  <mat-option [value]="user.id">{{ user.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+          @if (!showDeleteConfirm()) {
+          <!-- Delete Button -->
+          <button mat-stroked-button color="warn" (click)="onDeleteClick()">
+            <mat-icon>delete</mat-icon> Delete Task
+          </button>
+          }
+
+          @if (showDeleteConfirm()) {
+          <!-- Delete Confirmation -->
+          <div class="delete-confirm">
+            <span>Are you sure?</span>
+            <button mat-raised-button color="warn" (click)="onConfirmDelete()">Yes, delete</button>
+            <button mat-button (click)="onCancelDelete()">Cancel</button>
+          </div>
+          }
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <!-- RIGHT: Comments -->
+    <div class="right-column">
+      <mat-card class="comments-card">
+        <mat-card-header>
+          <mat-card-title>Comments ({{ comments().length }})</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+
+          <!-- Comments List -->
+          <div class="comments-list">
+            @if (comments().length === 0) {
+            <div class="empty-comments">
+              <p>No comments yet. Be the first to comment.</p>
+            </div>
+            }
+
+            @for (comment of comments(); track comment.id) {
+            <div class="comment-item">
+              <!-- Author Avatar on Edge -->
+              <div class="comment-avatar">
+                <div class="avatar-circle">
+                  {{ getAuthorInitials(comment.author_name) }}
+                </div>
+              </div>
+              
+              <!-- Comment Content -->
+              <div class="comment-content">
+                <div class="comment-header">
+                  <strong class="author-name">{{ comment.author_name }}</strong>
+                  <span class="comment-date">{{ formatDate(comment.created_at) }}</span>
+                </div>
+                <p class="comment-body">{{ comment.body }}</p>
+              </div>
+            </div>
+            }
+          </div>
+          
+          <!-- Scroll target for new comments -->
+          <div #commentsBottom></div>
+
+          <!-- Add Comment -->
+          <div class="add-comment">
+            <textarea
+              class="comment-input"
+              placeholder="Write a comment..."
+              rows="3"
+              [value]="newComment()"
+              (input)="newComment.set($any($event.target).value)"
+              aria-label="Write a comment">
+            </textarea>
+            <button mat-raised-button color="primary"
+              [disabled]="!newComment().trim()"
+              (click)="onSubmitComment()">
+              <mat-icon>send</mat-icon> Send
+            </button>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+</div>
+}

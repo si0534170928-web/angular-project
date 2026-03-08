@@ -1,0 +1,288 @@
+/* ClickUp-Inspired App Layout Styles */
+
+/* Main Container */
+.app-container {
+  min-height: 100vh !important;
+  background-color: var(--neutral-bg) !important;
+  padding: 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Layout Wrapper - Side by Side */
+.layout-wrapper {
+  flex: 1 !important;
+  display: flex !important;
+  gap: 12px !important;
+  height: calc(100vh - 24px) !important;
+}
+
+/* Side Navigation */
+.app-sidenav {
+  width: 280px !important;
+  background-color: var(--white) !important;
+  border: 1px solid var(--neutral-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  
+  .sidenav-header {
+    padding: 24px 20px 16px !important;
+    border-bottom: 1px solid var(--neutral-border) !important;
+    border-radius: 12px 12px 0 0 !important;
+    
+    h2 {
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      color: var(--text-primary) !important;
+      margin: 0 !important;
+      letter-spacing: -0.01em !important;
+    }
+  }
+  
+  .sidenav-content {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    padding: 20px !important;
+  }
+  
+  .nav-section {
+    margin-bottom: 32px !important;
+    
+    h3 {
+      font-size: 12px !important;
+      font-weight: 600 !important;
+      color: var(--text-secondary) !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      margin: 0 0 12px 0 !important;
+      padding: 0 12px !important;
+    }
+  }
+  
+  .nav-item, .nav-list .nav-item {
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    color: var(--text-secondary) !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid transparent !important;
+    margin: 2px 0 !important;
+    
+    mat-icon {
+      margin-right: 12px !important;
+      font-size: 20px !important;
+      width: 20px !important;
+      height: 20px !important;
+      color: inherit !important;
+    }
+    
+    &:hover {
+      background-color: var(--primary-light) !important;
+      color: var(--primary-color) !important;
+      border-color: rgba(99, 102, 241, 0.1) !important;
+    }
+    
+    &.active {
+      background-color: var(--primary-light) !important;
+      color: var(--primary-color) !important;
+      border-color: rgba(99, 102, 241, 0.2) !important;
+      font-weight: 600 !important;
+    }
+  }
+}
+
+/* Main Content Area */
+.app-main-content {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background-color: var(--white) !important;
+  border: 1px solid var(--neutral-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  overflow: hidden !important;
+  min-width: 0 !important;
+}
+
+/* Top Toolbar */
+.app-toolbar {
+  background-color: var(--white) !important;
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--neutral-border) !important;
+  border-radius: 12px 12px 0 0 !important;
+  box-shadow: none !important;
+  z-index: 2 !important;
+  min-height: 64px !important;
+  
+  .menu-toggle {
+    margin-right: 16px !important;
+    color: var(--text-secondary) !important;
+    
+    &:hover {
+      background-color: var(--primary-light) !important;
+      color: var(--primary-color) !important;
+    }
+  }
+  
+  .toolbar-title h1 {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    margin: 0 !important;
+    letter-spacing: -0.01em !important;
+  }
+  
+  .toolbar-spacer {
+    flex: 1 1 auto !important;
+  }
+}
+
+/* Header User Controls */
+.header-user-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 8px;
+}
+
+.welcome-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.logout-button {
+  color: var(--text-secondary) !important;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  color: var(--primary-color) !important;
+  background-color: var(--primary-light) !important;
+}
+
+/* Main Content Wrapper */
+.main-content-wrapper {
+  flex: 1 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Router Outlet Content */
+.router-outlet-content {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 24px !important;
+}
+
+/* Navigation List Styles */
+.nav-list {
+  padding: 0 !important;
+  
+  .nav-section-title {
+    padding: 16px 12px 8px !important;
+    font-size: 11px !important;  
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+  }
+  
+  mat-divider {
+    margin: 16px 0 !important;
+    border-color: var(--neutral-border) !important;
+  }
+}
+
+/* Scrollbar Styling */
+.app-sidenav::-webkit-scrollbar,
+.router-outlet-content::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.app-sidenav::-webkit-scrollbar-track,
+.router-outlet-content::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.app-sidenav::-webkit-scrollbar-thumb,
+.router-outlet-content::-webkit-scrollbar-thumb {
+  background: var(--neutral-border) !important;
+  border-radius: 4px !important;
+  
+  &:hover {
+    background: var(--text-muted) !important;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .layout-wrapper {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  
+  .app-sidenav {
+    width: 100% !important;
+    height: auto !important;
+    order: 2 !important;
+  }
+  
+  .app-main-content {
+    order: 1 !important;
+  }
+  
+  .router-outlet-content {
+    padding: 16px !important;
+  }
+  
+  .app-toolbar .toolbar-title h1 {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .router-outlet-content {
+    padding: 12px !important;
+  }
+  
+  .app-sidenav .sidenav-header {
+    padding: 20px 16px 12px !important;
+  }
+  
+  .app-container {
+    padding: 8px !important;
+  }
+}
+
+/* Animation & Focus States */
+.nav-item {
+  will-change: background-color, color !important;
+  
+  &:focus-visible {
+    outline: 2px solid var(--primary-color) !important;
+    outline-offset: -2px !important;
+  }
+}

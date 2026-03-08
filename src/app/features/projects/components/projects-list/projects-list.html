@@ -1,0 +1,30 @@
+<div class="projects-list-container">
+  <!-- Loading State -->
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading projects...</p>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!loading && projects.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <h3>No Projects Yet</h3>
+      <p>Create your first project to get started!</p>
+    </div>
+  }
+
+  <!-- Projects Grid -->
+  @if (!loading && projects.length > 0) {
+    <div class="projects-grid">
+      @for (project of projects; track trackByProjectId($index, project)) {
+        <app-project-card 
+          [project]="project"
+          (cardClick)="onProjectSelected($event)">
+        </app-project-card>
+      }
+    </div>
+  }
+</div>

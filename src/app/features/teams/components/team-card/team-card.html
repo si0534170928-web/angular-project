@@ -1,0 +1,28 @@
+<div class="team-card" (click)="onClick()">
+  <div class="team-card-header">
+    <span class="team-icon"><mat-icon>groups</mat-icon></span>
+    <h3 class="team-name">{{ team.name }}</h3>
+  </div>
+  <div class="team-card-body">
+    <div class="team-info">
+      <span class="info-label">Members:</span>
+      <span class="info-value">{{ team.members_count }}</span>
+    </div>
+    <div class="team-info">
+      <span class="info-label">Created:</span>
+      <span class="info-value">{{ team.created_at | date:'shortDate' }}</span>
+    </div>
+  </div>
+  <div class="team-card-footer">
+    @if (canAddMembers) {
+      <button 
+        class="add-member-btn"
+        (click)="onAddMember($event)"
+        title="Add Member"
+      >
+        + Add
+      </button>
+    }
+    <span class="view-projects">View Projects →</span>
+  </div>
+</div>

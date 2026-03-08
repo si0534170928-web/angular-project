@@ -1,0 +1,1 @@
+This folder has been moved to layout/header/user-menu.

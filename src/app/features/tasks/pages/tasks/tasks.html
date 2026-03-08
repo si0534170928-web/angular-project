@@ -1,0 +1,107 @@
+<div class="page-container">
+
+  <div class="page-header">
+    <h1>My Tasks</h1>
+    @if (canSeeAllTasks()) {
+      <p class="subtitle">All team tasks across all projects (Team Leader View)</p>
+      <p class="role-info">✓ You can see all team tasks as a team leader</p>
+    } @else {
+      <p class="subtitle">Your assigned tasks across all projects</p>
+      <p class="role-info">Showing only tasks assigned to you</p>
+    }
+  </div>
+
+  @if (isLoading()) {
+  <!-- Loading State -->
+  <div class="board-loading">
+    <div class="spinner"></div>
+    <p>Loading your tasks...</p>
+  </div>
+  }
+
+  @if (!isLoading()) {
+  <!-- Kanban Board -->
+  <div class="kanban-board">
+
+    <!-- Todo Column -->
+    <div class="kanban-column">
+      <div class="column-header todo-header">
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <span>Todo</span>
+        <span class="count">{{ todoTasks().length }}</span>
+      </div>
+      <div class="tasks-list">
+        @if (todoTasks().length === 0) {
+        <div class="empty-column">
+          <p>No tasks here</p>
+        </div>
+        }
+        @for (task of todoTasks(); track task.id) {
+        <mat-card
+          class="task-card"
+          (click)="onTaskClick(task)">
+          <mat-card-content>
+            <p class="task-title">{{ task.title }}</p>
+            <mat-chip [color]="getPriorityColor(task.priority)" selected>{{ task.priority }}</mat-chip>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+    </div>
+
+    <!-- In Progress Column -->
+    <div class="kanban-column">
+      <div class="column-header in-progress-header">
+        <mat-icon>pending</mat-icon>
+        <span>In Progress</span>
+        <span class="count">{{ inProgressTasks().length }}</span>
+      </div>
+      <div class="tasks-list">
+        @if (inProgressTasks().length === 0) {
+        <div class="empty-column">
+          <p>No tasks here</p>
+        </div>
+        }
+        @for (task of inProgressTasks(); track task.id) {
+        <mat-card
+          class="task-card"
+          (click)="onTaskClick(task)">
+          <mat-card-content>
+            <p class="task-title">{{ task.title }}</p>
+            <mat-chip [color]="getPriorityColor(task.priority)" selected>{{ task.priority }}</mat-chip>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+    </div>
+
+    <!-- Done Column -->
+    <div class="kanban-column">
+      <div class="column-header done-header">
+        <mat-icon>check_circle</mat-icon>
+        <span>Done</span>
+        <span class="count">{{ doneTasks().length }}</span>
+      </div>
+      <div class="tasks-list">
+        @if (doneTasks().length === 0) {
+        <div class="empty-column">
+          <p>No tasks here</p>
+        </div>
+        }
+        @for (task of doneTasks(); track task.id) {
+        <mat-card
+          class="task-card done-card"
+          (click)="onTaskClick(task)">
+          <mat-card-content>
+            <p class="task-title done-title">{{ task.title }}</p>
+            <mat-chip [color]="getPriorityColor(task.priority)" selected>{{ task.priority }}</mat-chip>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+    </div>
+
+  </div>
+  }
+
+</div>

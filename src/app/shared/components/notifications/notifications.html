@@ -1,0 +1,23 @@
+@if (notifications.length > 0) {
+  <div class="notifications-container">
+    @for (notification of notifications; track notification.id) {
+      <div class="notification notification-{{ notification.type }}">
+        <span class="notification-icon">
+          @if (notification.type === 'success') { ✓ }
+          @if (notification.type === 'error') { ✕ }
+          @if (notification.type === 'warning') { ⚠ }
+          @if (notification.type === 'info') { ℹ }
+        </span>
+        <div class="notification-content">
+          <span class="notification-message">{{ notification.message }}</span>
+        </div>
+        <button
+          class="notification-close"
+          (click)="onClose(notification.id)"
+          aria-label="Close notification">
+          ×
+        </button>
+      </div>
+    }
+  </div>
+}

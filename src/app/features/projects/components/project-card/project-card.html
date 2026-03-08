@@ -1,0 +1,5 @@
+<div class="project-card" (click)="onCardClick()">
+  <h3>{{ project.name }}</h3>
+  <p>{{ project.status }}</p>
+  <span>{{ project.created_at | date:'shortDate' }}</span>
+</div>

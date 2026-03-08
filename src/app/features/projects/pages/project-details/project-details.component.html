@@ -1,0 +1,146 @@
+@if (isLoading()) {
+<!-- Loading State -->
+<div class="loading-container">
+  <p>Loading project...</p>
+</div>
+}
+
+@if (error()) {
+<!-- Error State -->
+<div class="error-container">
+  <p>{{ error() }}</p>
+  <button mat-button (click)="goBack()" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+    Back to Projects
+  </button>
+</div>
+}
+
+@if (!isLoading() && !error() && currentProject()) {
+<!-- Project Details -->
+<div class="project-container">
+  
+  <!-- Header with Back Button -->
+  <div class="header-section">
+    <button mat-button (click)="goBack()" class="back-button" aria-label="Go back to projects list">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Projects
+    </button>
+  </div>
+
+  <!-- Project Information Card -->
+  <mat-card class="project-info-card">
+    <mat-card-header>
+      <mat-card-title>{{ currentProject()?.name }}</mat-card-title>
+      @if (currentTeam()) {
+        <mat-card-subtitle>Team: {{ currentTeam()?.name }}</mat-card-subtitle>
+      }
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="project-details">
+        
+        @if (currentProject()?.description) {
+        <!-- Project Description -->
+        <div class="detail-item">
+          <h4>Description</h4>
+          <p>{{ currentProject()?.description }}</p>
+        </div>
+        }
+
+        <!-- Project Status -->
+        <div class="detail-item">
+          <h4>Status</h4>
+          <span class="status-badge" [class]="'status-' + currentProject()?.status">
+            {{ currentProject()?.status | titlecase }}
+          </span>
+        </div>
+
+        @if (currentTeam()) {
+        <!-- Team Information -->
+        <div class="detail-item">
+          <h4>Team Details</h4>
+          <div class="team-info">
+            <p><strong>Team Name:</strong> {{ currentTeam()?.name }}</p>
+            <p><strong>Team Members:</strong> {{ currentTeam()?.members_count }} members</p>
+          </div>
+        </div>
+        }
+
+        <!-- Project Created Date -->
+        <div class="detail-item">
+          <h4>Created</h4>
+          <p>{{ formatDate(currentProject()?.created_at) }}</p>
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tasks Section Card -->
+  <mat-card class="tasks-section-card">
+    <mat-card-header>
+      <mat-card-title class="tasks-header">
+        <span>Tasks</span>
+        <button mat-raised-button color="primary" (click)="onAddTask()" class="add-task-button" aria-label="Add new task to this project">
+          <mat-icon>add</mat-icon>
+          Add Task
+        </button>
+      </mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="tasks-content" [class.has-tasks]="projectTasks().length > 0" [class.empty-state]="projectTasks().length === 0">
+        
+        @if (isLoading()) {
+        <!-- Loading indicator -->
+        <div class="tasks-loading">
+          <p>Loading tasks...</p>
+        </div>
+        }
+        
+        @if (!isLoading() && projectTasks().length > 0) {
+        <!-- Tasks list -->
+        <div class="tasks-list">
+          @for (task of projectTasks(); track task.id) {
+          <div class="task-row">
+            <div class="task-info">
+              <h4 class="task-title">{{ task.title }}</h4>
+              <div class="task-badges">
+                <span class="priority-badge priority-{{ task.priority }}">{{ task.priority | titlecase }}</span>
+                <span class="status-badge status-{{ task.status }}">{{ task.status | titlecase }}</span>
+              </div>
+            </div>
+            <div class="task-actions">
+              <button mat-button color="primary" (click)="viewTask(task.id)" aria-label="View task details for {{ task.title }}">
+                <mat-icon>visibility</mat-icon>
+                View
+              </button>
+            </div>
+          </div>
+          }
+        </div>
+        }
+        
+        @if (!isLoading() && projectTasks().length === 0) {
+        <!-- Empty state for tasks -->
+        <div class="empty-tasks">
+          <mat-icon class="empty-icon">assignment</mat-icon>
+          <p>No tasks yet. Click Add Task to create one.</p>
+        </div>
+        }
+        
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+}
+
+<!-- Create Task Modal -->
+<app-create-task-modal 
+  [isOpen]="showCreateTaskModal()" 
+  [projectId]="+id()"
+  (close)="showCreateTaskModal.set(false)"
+  (taskCreated)="showCreateTaskModal.set(false)">
+</app-create-task-modal>

@@ -1,0 +1,1 @@
+UserMenu component moved to src/app/layout/header/user-menu.

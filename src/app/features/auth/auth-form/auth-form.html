@@ -1,0 +1,82 @@
+<form class="modern-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  @if (mode() === 'register') {
+    <mat-form-field appearance="outline">
+      <mat-label>Full Name *</mat-label>
+      <input 
+        matInput
+        formControlName="name" 
+        type="text" 
+        placeholder="Enter your full name"
+      />
+      @if (authForm.get('name')?.invalid && authForm.get('name')?.touched) {
+        <mat-error>
+          @if (authForm.get('name')?.errors?.['required']) {
+            Full name is required
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+  }
+  
+  <mat-form-field appearance="outline">
+    <mat-label>Email Address *</mat-label>
+    <input 
+      matInput
+      type="email" 
+      formControlName="email"
+      placeholder="Enter your email"
+    >
+    @if (authForm.get('email')?.invalid && authForm.get('email')?.touched) {
+      <mat-error>
+        @if (authForm.get('email')?.errors?.['required']) {
+          Email is required
+        }
+        @if (authForm.get('email')?.errors?.['email']) {
+          Please enter a valid email address
+        }
+      </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Password *</mat-label>
+    <input 
+      matInput
+      type="password" 
+      formControlName="password"
+      placeholder="Enter your password"
+    >
+    @if (authForm.get('password')?.invalid && authForm.get('password')?.touched) {
+      <mat-error>
+        @if (authForm.get('password')?.errors?.['required']) {
+          Password is required
+        }
+        @if (authForm.get('password')?.errors?.['minlength']) {
+          Password must be at least 6 characters long
+        }
+        @if (authForm.get('password')?.errors?.['maxlength']) {
+          Password cannot be longer than 20 characters
+        }
+        @if (authForm.get('password')?.errors?.['pattern']) {
+          Password must contain at least one letter and one number
+        }
+      </mat-error>
+    }
+  </mat-form-field>
+  
+  <button 
+    type="submit" 
+    mat-raised-button
+    color="primary"
+    class="form-submit-btn"
+    [disabled]="authForm.invalid || isLoading()"
+  >
+    @if (isLoading()) {
+      Processing...
+    } @else if (mode() === 'login') {
+      Sign In
+    } @else {
+      Create Account
+    }
+  </button>
+</form>

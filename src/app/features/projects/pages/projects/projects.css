@@ -1,0 +1,59 @@
+.projects-page {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 0;
+}
+
+.page-header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.header-content {
+  flex: 1;
+}
+
+.page-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.page-description {
+  margin: 0;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.header-actions {
+  flex-shrink: 0;
+}
+
+.projects-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .page-title {
+    font-size: 1.75rem;
+  }
+  
+  .projects-content {
+    padding: 1rem;
+  }
+}

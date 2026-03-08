@@ -1,0 +1,22 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>שלום {{ userName }}!</h1>
+    <p>מה תרצה לעשות היום?</p>
+  </div>
+
+  <div class="dashboard-cards">
+    <div class="dashboard-card teams-card" (click)="goToTeams()">
+      <div class="card-icon"><mat-icon>groups</mat-icon></div>
+      <h3>הצוותים שלי</h3>
+      <p>צפה וניהל את הצוותים</p>
+      <div class="card-arrow">→</div>
+    </div>
+
+    <div class="dashboard-card tasks-card" (click)="goToTasks()">
+      <div class="card-icon"><mat-icon>assignment</mat-icon></div>
+      <h3>המשימות שלי</h3>
+      <p>צפה במשימות ועדכן סטטוס</p>
+      <div class="card-arrow">→</div>
+    </div>
+  </div>
+</div>

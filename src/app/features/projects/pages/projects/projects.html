@@ -1,0 +1,67 @@
+<div class="projects-page">
+  <!-- Header Section -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">
+        @if (selectedTeamName()) {
+          {{ selectedTeamName() }} Projects
+        } @else {
+          My Projects  
+        }
+      </h1>
+      <p class="page-description">
+        @if (selectedTeamName()) {
+          Manage projects for {{ selectedTeamName() }}
+        } @else {
+          Manage and organize your projects
+        }
+      </p>
+    </div>
+    <div class="header-actions">
+      @if (selectedTeamId()) {
+        <app-action-button
+          text="Back to Teams"
+          variant="secondary"
+          (clicked)="goBackToTeams()">
+        </app-action-button>
+        <app-action-button
+          text="New Project"
+          variant="primary"
+          (clicked)="onCreateProject()">
+        </app-action-button>
+      } @else {
+        <app-action-button
+          text="Select a Team"
+          variant="primary"
+          (clicked)="goBackToTeams()">
+        </app-action-button>
+      }
+    </div>
+  </div>
+
+  <!-- Projects List Section -->
+  <div class="projects-content">
+    <app-projects-list
+      [projects]="projects"
+      [loading]="loading()"
+      (projectSelected)="onProjectSelected($event)">
+    </app-projects-list>
+  </div>
+
+  <!-- Create Project Modal -->
+  <app-create-project-modal
+    [isOpen]="showCreateModal()"
+    [teamId]="selectedTeamId()!"
+    [teamName]="selectedTeamName()"
+    (close)="closeCreateModal()"
+    (projectCreated)="onProjectCreated($event)">
+  </app-create-project-modal>
+
+  <!-- Project Details Modal -->
+  <app-project-details-modal
+    [isOpen]="showDetailsModal()"
+    [project]="selectedProject()"
+    (close)="onProjectDetailsClosed()"
+    (seeTasks)="onSeeProjectTasks($event)">
+  </app-project-details-modal>
+</div>

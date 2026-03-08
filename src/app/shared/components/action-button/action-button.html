@@ -1,0 +1,24 @@
+<button
+  mat-flat-button
+  [class]="'action-btn action-btn-' + variant() + ' action-btn-' + size() + (fullWidth() ? ' action-btn-full-width' : '')"
+  [disabled]="disabled() || loading()"
+  (click)="onClick()">
+  
+  @if (loading()) {
+  <!-- Loading Spinner -->
+    <mat-icon class="loading-icon">refresh</mat-icon>
+  } @else {
+    @if (icon() && iconPosition() === 'left') {
+    <!-- Left Icon -->
+      <mat-icon class="button-icon icon-left">{{ icon() }}</mat-icon>
+    }
+    
+    <!-- Button Text -->
+    <span class="button-text">{{ text() }}</span>
+    
+    @if (icon() && iconPosition() === 'right') {
+    <!-- Right Icon -->
+      <mat-icon class="button-icon icon-right">{{ icon() }}</mat-icon>
+    }
+  }
+</button>

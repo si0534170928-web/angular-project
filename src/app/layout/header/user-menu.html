@@ -1,0 +1,20 @@
+<div class="user-menu-container">
+  <div class="user-avatar" (click)="toggleMenu()" 
+       role="button" 
+       aria-label="Open user menu" 
+       tabindex="0">
+    @if (user) {
+      <span>{{ userInitial }}</span>
+    } @else {
+      <span>?</span>
+    }
+  </div>
+  @if (showMenu()) {
+    <div class="user-dropdown">
+      <div class="user-name">{{ user?.name || 'Guest' }}</div>
+      <button (click)="logout()" aria-label="Log out of your account">
+        Logout
+      </button>
+    </div>
+  }
+</div>

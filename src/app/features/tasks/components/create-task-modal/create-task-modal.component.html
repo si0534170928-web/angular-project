@@ -1,0 +1,86 @@
+@if (isOpen()) {
+<div class="modal-backdrop" (click)="onCancel()">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    
+    <!-- Header -->
+    <div class="modal-header">
+      <h2>Add New Task</h2>
+      <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close add task dialog">×</button>
+    </div>
+    
+    <!-- Form -->
+    <form (ngSubmit)="onSubmit()" class="task-form">
+      
+      <!-- Title -->
+      <mat-form-field appearance="outline">
+        <mat-label>Task Title *</mat-label>
+        <input matInput 
+               name="title"
+               [ngModel]="title()" 
+               (ngModelChange)="title.set($event)"
+               placeholder="Enter task title">
+      </mat-form-field>
+      
+      <!-- Description -->
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput 
+                  rows="3"
+                  name="description"
+                  [ngModel]="description()" 
+                  (ngModelChange)="description.set($event)"
+                  placeholder="Enter task description"></textarea>
+      </mat-form-field>
+      
+      <!-- Due Date -->
+      <mat-form-field appearance="outline">
+        <mat-label>Due Date</mat-label>
+        <input matInput 
+               [matDatepicker]="picker"
+               name="dueDate"
+               [ngModel]="dueDate()" 
+               (ngModelChange)="dueDate.set($event)"
+               placeholder="Select due date"
+               readonly>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      
+      <!-- Priority & Status -->
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Priority</mat-label>
+          <mat-select name="priority" [ngModel]="priority()" (ngModelChange)="priority.set($event)" aria-label="Select task priority">
+            @for (p of priorities; track p.value) {
+              <mat-option [value]="p.value">{{p.label}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select name="status" [ngModel]="status()" (ngModelChange)="status.set($event)" aria-label="Select task status">
+            @for (s of statuses; track s.value) {
+              <mat-option [value]="s.value">{{s.label}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <!-- Buttons -->
+      <div class="form-actions">
+        <button type="button" mat-stroked-button (click)="onCancel()">
+          Cancel
+        </button>
+        <button type="submit" 
+                mat-raised-button 
+                color="primary"
+                [disabled]="!isFormValid() || isSubmitting()">
+          {{isSubmitting() ? 'Creating...' : 'Create Task'}}
+        </button>
+      </div>
+      
+    </form>
+  </div>
+</div>
+}

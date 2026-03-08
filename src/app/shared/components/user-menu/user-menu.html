@@ -1,0 +1,17 @@
+<div class="user-menu-container">
+  <div class="user-avatar" (click)="toggleMenu()">
+    <span>{{ userInitial }}</span>
+  </div>
+  @if (showMenu()) {
+    <div class="user-dropdown">
+      @if (isAuthenticated) {
+        <div class="user-name">{{ user?.name }}</div>
+        <button class="menu-item logout-btn" (click)="logout()">Sign Out</button>
+      } @else {
+        <div class="guest-name">Guest</div>
+        <button class="menu-item login-btn" (click)="goToLogin()">Login</button>
+        <button class="menu-item register-btn" (click)="goToRegister()">Register</button>
+      }
+    </div>
+  }
+</div>

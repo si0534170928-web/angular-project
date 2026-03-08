@@ -1,0 +1,86 @@
+<!-- ClickUp-Inspired Navigation Layout -->
+<div class="app-container">
+  
+  <div class="layout-wrapper">
+    <!-- Side Navigation -->
+    @if (isAuthorized()) {
+      <div class="app-sidenav">
+        <!-- Navigation Header -->
+        <div class="sidenav-header">
+          <div class="workspace-info">
+            <div class="workspace-name">TaskFlow Pro</div>
+            <div class="workspace-subtitle">Team Dashboard</div>
+          </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <mat-nav-list class="nav-list">
+          <a mat-list-item routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+            <mat-icon matListItemIcon>dashboard</mat-icon>
+            <span matListItemTitle>Dashboard</span>
+          </a>
+          
+          <a mat-list-item routerLink="/tasks" routerLinkActive="active" class="nav-item">
+            <mat-icon matListItemIcon>assignment</mat-icon>
+            <span matListItemTitle>Tasks</span>
+          </a>
+          
+          <a mat-list-item routerLink="/teams" routerLinkActive="active" class="nav-item">
+            <mat-icon matListItemIcon>group</mat-icon>
+            <span matListItemTitle>Teams</span>
+          </a>
+          
+          <a mat-list-item routerLink="/projects" routerLinkActive="active" class="nav-item">
+            <mat-icon matListItemIcon>folder</mat-icon>
+            <span matListItemTitle>Projects</span>
+          </a>
+        </mat-nav-list>
+      </div>
+    }
+
+    <!-- Main Content Area -->
+    <div class="app-main-content">
+      <!-- Top Toolbar -->
+      <mat-toolbar class="app-toolbar" color="primary">
+        <div class="toolbar-title">
+          <h1>{{ title() }}</h1>
+        </div>
+        
+        <div class="toolbar-spacer"></div>
+        
+        <!-- Header User Controls -->
+        @if (isAuthorized()) {
+          <div class="header-user-controls">
+            <!-- User Profile Info -->
+            <div class="user-info">
+              <span class="welcome-text">Welcome</span>
+              <span class="user-name">{{ getCurrentUserName() }}</span>
+            </div>
+            
+            <!-- User Avatar -->
+            <app-user-menu></app-user-menu>
+            
+            <!-- Logout Button -->
+            <button 
+              mat-icon-button 
+              (click)="logout()" 
+              matTooltip="Sign Out"
+              class="logout-button">
+              <mat-icon>logout</mat-icon>
+            </button>
+          </div>
+        } @else {
+          <app-user-menu></app-user-menu>
+        }
+      </mat-toolbar>
+
+      <!-- Content Wrapper -->
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Global Notifications -->
+<app-notifications></app-notifications>

@@ -1,0 +1,29 @@
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888;
+}
+.empty-icon {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: #888;
+}
+
+.empty-icon mat-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  color: inherit;
+}
+.empty-state p {
+  font-size: 1.1rem;
+  margin: 0;
+}

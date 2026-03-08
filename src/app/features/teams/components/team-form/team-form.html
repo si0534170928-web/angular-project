@@ -1,0 +1,48 @@
+<form [formGroup]="teamForm" (ngSubmit)="onSubmit()" class="team-form">
+  <div class="form-header">
+    <h3 class="form-title">Create a New Team</h3>
+    <p class="form-subtitle">Bring your team together and collaborate seamlessly</p>
+  </div>
+
+  <div class="form-group">
+    <div class="input-wrapper">
+      <input
+        type="text"
+        id="teamName"
+        class="form-input"
+        formControlName="name"
+        placeholder="Enter team name"
+        maxlength="50"
+      />
+      <div class="input-underline"></div>
+      <span class="char-count">{{ teamForm.get('name')?.value?.length || 0 }}/50</span>
+    </div>
+
+    @if (teamForm.get('name')?.invalid && teamForm.get('name')?.touched && !isLoading()) {
+      <div class="error-message">
+        <svg class="error-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 5V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="8" cy="12" r="0.5" fill="currentColor"/>
+        </svg>
+        {{ getErrorMessage() }}
+      </div>
+    }
+  </div>
+
+  <div class="form-actions">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!teamForm.valid"
+    >
+      @if (isLoading()) {
+        <span class="spinner"></span>
+        <span class="btn-text">Creating...</span>
+      } @else {
+        <span class="btn-text">Create Team</span>
+        <span class="btn-icon">→</span>
+      }
+    </button>
+  </div>
+</form>

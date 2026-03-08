@@ -1,0 +1,54 @@
+@if (isOpen && project) {
+  <div class="modal-overlay" (click)="onBackdropClick($event)">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2>{{ project.name }}</h2>
+        <p class="modal-subtitle">Project Details</p>
+        <button 
+          class="modal-close"
+          (click)="onClose()">
+          ✕
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="project-details">
+          <div class="detail-item">
+            <label class="detail-label">Description:</label>
+            <p class="detail-value">{{ project.description || 'No description available' }}</p>
+          </div>
+          
+          <div class="detail-item">
+            <label class="detail-label">Status:</label>
+            <span class="status-badge" [class]="'status-' + project.status">
+              {{ project.status }}
+            </span>
+          </div>
+          
+          <div class="detail-item">
+            <label class="detail-label">Team ID:</label>
+            <span class="detail-value">{{ project.team_id }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <label class="detail-label">Created:</label>
+            <span class="detail-value">{{ project.created_at | date:'medium' }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <app-action-button 
+          text="See Tasks" 
+          variant="primary"
+          (click)="onSeeTasks()">
+        </app-action-button>
+        <app-action-button 
+          text="Close" 
+          variant="secondary"
+          (click)="onClose()">
+        </app-action-button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,96 @@
+<div class="teams-page">
+  <div class="page-header">
+    <h2 class="page-title">My Teams</h2>
+    <app-action-button
+      text="+ New Team"
+      variant="primary"
+      icon="add"
+      size="medium"
+      (clicked)="onCreateTeam()">
+    </app-action-button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">
+      <p>Loading teams...</p>
+    </div>
+  } @else {
+    <app-teams-list
+      [teams]="teams()"
+      [canAddMembers]="canAddMembers()"
+      (teamSelected)="onTeamSelected($event)"
+      (addMember)="onAddMember($event)">
+    </app-teams-list>
+  }
+
+  <!-- Success/Error Messages -->
+  @if (successMessage()) {
+    <mat-card class="alert-success">
+      <mat-card-content>
+        <div class="alert-content">
+          <mat-icon>check_circle</mat-icon>
+          <span>{{ successMessage() }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+  
+  @if (errorMessage()) {
+    <mat-card class="alert-error">
+      <mat-card-content>
+        <div class="alert-content">
+          <mat-icon>error</mat-icon>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- Create Team Modal -->
+  @if (showCreateModal()) {
+    <div class="modal-backdrop" (click)="onCloseCreateModal()"></div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="close-button"
+            (click)="onCloseCreateModal()"
+            aria-label="Close">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-team-form
+            [isLoading]="isCreating()"
+            (teamFormSubmitted)="onSubmitTeamForm($event)">
+          </app-team-form>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Add Member Modal -->
+  @if (showAddMemberModal()) {
+    <div class="modal-backdrop" (click)="onCloseAddMemberModal()"></div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="close-button"
+            (click)="onCloseAddMemberModal()"
+            aria-label="Close">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-add-member-form
+            [isLoading]="isAddingMember()"
+            (memberFormSubmitted)="onSubmitAddMemberForm($event)">
+          </app-add-member-form>
+        </div>
+      </div>
+    </div>
+  }
+</div>
