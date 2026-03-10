@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production",
-    "build:render": "npm install --legacy-peer-deps && ng build --configuration production",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' ng build --configuration production",
+    "build:render": "npm install --legacy-peer-deps && NODE_OPTIONS='--max-old-space-size=4096' ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:todo-list": "node dist/todo-list/server/server.mjs"
