@@ -27,8 +27,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "server": "src/main.server.ts",
-            "outputMode": "spa"
+            "outputPath": "dist/todo-list",
+            "outputMode": "static"
           },
           "configurations": {
             "production": {
